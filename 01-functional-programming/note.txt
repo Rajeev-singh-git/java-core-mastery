@@ -1,0 +1,253 @@
+*****************Commit = First Java Functional Program
+
+  What we did?
+
+    Printed list of no using Structured Programming approach and then using Functional programming approach
+
+
+  In Functional programming 
+
+         for each number we are calling print method, we are not calling print method directly
+		b/z it will immediately  execute the code. We want to define behavior we get  a number as input.
+		For defining, we use method reference.
+		
+		 What we are telling is?
+		 Take the numbers, convert it into stream and for each element do a print 
+		
+		FPO1Functional::print == Method Reference
+		
+		
+		
+
+	-----Creating Streams using Streams of method and for Array------
+		
+jshell> List<Integer> numbers = List.of(12,9,13,4,6,2,4,12,15);
+numbers ==> [12, 9, 13, 4, 6, 2, 4, 12, 15]
+
+jshell> numbers.stream()
+$2 ==> java.util.stream.ReferencePipeline$Head@5ef04b5  //Reference pipeline is when we use wrapper classes or CCustom classes
+
+jshell> Stream.of(12, 9, 13, 4, 6, 2, 4, 12, 15).count() //We can create stream even directly
+$3 ==> 9
+
+
+jshell> Stream.of(12,9,13,4,6,2,4,12,15)
+$4 ==> java.util.stream.ReferencePipeline$Head@69663380
+
+jshell> int[] numberArray = {12,9,13,4,6,2,4,12,15};    //We can even create stream of an Array
+numberArray ==> int[9] { 12, 9, 13, 4, 6, 2, 4, 12, 15 }
+
+jshell> Arrays.stream(numberArray)
+$6 ==> java.util.stream.IntPipeline$Head@28c97a5 //Int pipeline when we use primitive int values 
+
+jshell> Arrays.stream(numberArray).sum()
+$7 ==> 77
+
+
+  Creating Strams for first 10 Numbers, Square of Numbers and more-------------------
+  
+jshell> IntStream.range(1,10)  //This will create stream  from range 1 to 10
+$1 ==> java.util.stream.IntPipeline$Head@5ef04b5
+
+jshell> IntStream.range(1,10).sum()  //Last digit ..i.e.. 10 is not included in the sum
+$2 ==> 45
+
+jshell> IntStream.rangeClosed(1,10).sum()  //This will include last digit also in same operation
+$3 ==> 55
+
+jshell> IntStream.iterate(1, e-> e +2).limit(10).sum() //This will make stream starting from 1 and will add 2 to that till limit 10 is reached 
+$4 ==> 100                                             //after that will do sum of each one of them
+
+jshell> IntStream.iterate(1, e-> e +2).limit(10).peek(System.out::println).sum()
+1                  ////This will make and print  stream starting from 1 and will add 2 to that till limit 10 is reached 
+3                   // and will do sum of each one of them at end
+5
+7
+9
+11
+13
+15
+17
+19
+$5 ==> 100
+
+jshell> IntStream.iterate(2, e-> e+2).limit(10).peek(System.out::println).sum()
+2
+4
+6
+8
+10
+12
+14
+16
+18
+20
+$6 ==> 110
+
+jshell> IntStream.iterate(2, e-> e*2).limit(10).peek(System.out::println).sum()
+2
+4
+8
+16
+32
+64
+128
+256
+512
+1024
+$7 ==> 2046
+
+
+jshell> IntStream.iterate(2, e-> e*2).limit(10).boxed().collect(Collectors.toList()) //
+$8 ==> [2, 4, 8, 16, 32, 64, 128, 256, 512, 1024] //It will make a list of values from 2 each time multiplies by 2
+//We use boxed() values we have in stream is primitive we need to box them in wrapper class
+
+
+-------Doing BigNumber Calculation with BigInteger------------------
+
+jshell> Integer.MAX_VALUE
+$1 ==> 2147483647   //Max value of integer
+
+jshell> Long.MAX_VALUE
+$2 ==> 9223372036854775807  //Max value of long
+
+jshell> IntStream.rangeClosed(1,50).reduce(1, (x,y) -> x*y )
+$3 ==> 0   //  O/P is 0 b/z it is exceeding maximum integer range
+
+jshell> LongStream.rangeClosed(1,50).reduce(1, (x,y) -> x*y )
+$4 ==> -3258495067890909184  //  O/P is negative b/z it is exceeding maximum integer range
+
+jshell> LongStream.rangeClosed(1,10).reduce(1, (x,y) -> x*y )
+$5 ==> 3628800
+
+jshell> LongStream.rangeClosed(1,20).reduce(1, (x,y) -> x*y )
+$6 ==> 2432902008176640000
+
+jshell> LongStream.rangeClosed(1,30).reduce(1, (x,y) -> x*y )
+$7 ==> -8764578968847253504
+
+jshell> LongStream.rangeClosed(1,50).mapToObj(BigInteger::valueOf).reduce(BigInteger.ONE, BigInteger::multiply )
+$8 ==> 30414093201713378043612608166064768844377641568960512000000000000 //By using BigInteger we can calculate value beyond range
+                                                                         //of int and Long
+                                                                         
+                                                                         
+                                                                         
+                                                                         
+                                                                         
+----------------------------Joining Strings with joining and playing with FlatMap------------------------------------------------
+
+
+jshell> List<String> courses = List.of("Spring","Spring Boot","API","Microservices","AWS","PCF","Azure","Docker")
+courses ==> [Spring, Spring Boot, API, Microservices, AWS, PCF, Azure, Docker]
+
+jshell> courses.stream().collect(Collectors.joining(""))
+$2 ==> "SpringSpring BootAPIMicroservicesAWSPCFAzureDocker"
+
+jshell> courses.stream().collect(Collectors.joining(" "))
+$3 ==> "Spring Spring Boot API Microservices AWS PCF Azure Docker"
+
+jshell> courses.stream().collect(Collectors.joining(","))
+$4 ==> "Spring,Spring Boot,API,Microservices,AWS,PCF,Azure,Docker"
+
+jshell> "Spring".split("")
+$7 ==> String[6] { "S", "p", "r", "i", "n", "g" }
+
+jshell> courses.stream().map(course->course.split("")).flatMap(Arrays::stream).collect(Collectors.toList())
+$8 ==> [S, p, r, i, n, g, S, p, r, i, n, g,  , B, o, o, t, A, P, I, M, i, c, r, o, s, e, r, v, i, c, e, s, A, W, S, P, C, F, A, z, u, r, e, D, o, c, k, e, r]
+
+jshell> courses.stream().map(course->course.split("")).flatMap(Arrays::stream).distinct().collect(Collectors.toList())
+$9 ==> [S, p, r, i, n, g,  , B, o, t, A, P, I, M, c, s, e, v, W, C, F, z, u, D, k]    
+
+                                                                     
+jshell> List<String> courses2 = List.of("Spring","Spring Boot","API","Microservices","AWS","PCF","Azure","Docker")
+courses2 ==> [Spring, Spring Boot, API, Microservices, AWS, PCF, Azure, Docker]
+
+jshell> courses.stream().flatMap(course -> courses2.stream().map(course2 -> List.of(course,course2))).collect(Collectors.toList())
+/** We are matching course string with course2 and creating tuples for those string which have same number of character */
+
+
+$3 ==> [[Spring, Spring], [Spring, Spring Boot], [Spring, API], [Spring, Microservices], [Spring, AWS], [Spring, PCF], [Spring, Azure],
+ [Spring, Docker], [Spring Boot, Spring], [Spring Boot, Spring Boot], [Spring Boot, API], [Spring Boot, Microservices], 
+ [Spring Boot, AWS], [Spring Boot, PCF], [Spring Boot, Azure], [Spring Boot, Docker], [API, Spring], [API, Spring Boot],
+  [API, API], [API, Microservices], [API, AWS], [API, PCF], [API, Azure], [API, Docker], [Microservices, Spring], 
+  [Microservices, Spring Boot], [Microservices, API], [Microservices, Microservices], [Microservices, AWS], [Microservices, PCF],
+   [Microservices, Azure], [Microservices, Docker], [AWS, ... F, AWS], [PCF, PCF], [PCF, Azure], [PCF, Docker], [Azure, Spring], 
+   [Azure, Spring Boot], [Azure, API], [Azure, Microservices], [Azure, AWS], [Azure, PCF], [Azure, Azure], [Azure, Docker], 
+   [Docker, Spring], [Docker, Spring Boot], [Docker, API], [Docker, Microservices], [Docker, AWS], [Docker, PCF], [Docker, Azure], 
+   [Docker, Docker]]           
+   
+   
+jshell>
+        List<String> courses2 = List.of("Spring","Spring Boot","API","Microservices","AWS","PCF","Azure","Docker")
+courses2 ==> [Spring, Spring Boot, API, Microservices, AWS, PCF, Azure, Docker]
+
+                                              
+                                                                         
+jshell> courses.stream().flatMap(course -> courses2.stream().map(course2 -> List.of(course,course2)))
+.filter(list -> list.get(0).equals(list.get(1))).collect(Collectors.toList())
+
+/** We are matching course string with course2 and creating tuples for those string which have same number of character 
+and eliminating repeated string */
+
+$4 ==> [[Spring, Spring], [Spring Boot, Spring Boot], [API, API], [Microservices, Microservices], [AWS, AWS], [PCF, PCF], [Azure, Azure], [Docker, Docker]]                                                                         
+                                                                         
+jshell> courses.stream().flatMap(course -> courses2.stream().filter(course2 -> course2.length()==course.length()).
+map(course2 -> List.of(course,course2))).filter(list -> list.get(0).equals(list.get(1))).collect(Collectors.toList())
+
+/** We are matching course string with course2 and creating tuples for those string which have same number of character 
+and eliminating repeated string  also filtering same no of Character*/
+
+
+$5 ==> [[Spring, Spring], [Spring Boot, Spring Boot], [API, API], [Microservices, Microservices], [AWS, AWS], [PCF, PCF], [Azure, Azure], [Docker, Docker]]                                                                         
+                                                                         
+                                                                         
+------------------------FP and Performance - Intermediate stream Operations are lazy---------------------------------------
+
+jshell> List<String> courses = List.of("Spring","Spring Boot","API", "Microservices" , "AWS", "PCF", "Azure" , "Docker" , "Kubernetes");
+courses ==> [Spring, Spring Boot, API, Microservices, AWS, PCF, Azure, Docker, Kubernetes]
+
+
+jshell> courses.stream().filter(courses -> courses.length()>11).map(String::toUpperCase).findFirst()
+$2 ==> Optional[MICROSERVICES]
+
+/* adding peek to see what is happening in background. Each course is being stream until it find course 
+with length greater than 11. It won't execute afterwards because it knows it only has to find first course */
+
+
+
+jshell> courses.stream().peek(System.out::println).filter(courses -> courses.length()>11) 
+.map(String::toUpperCase).peek(System.out::println).findFirst()
+Spring
+Spring Boot
+API
+Microservices
+MICROSERVICES
+$3 ==> Optional[MICROSERVICES]
+
+/* All the intermediate operation in java is lazy, they are not executed if we don't add terminal
+operation for execution. Here "findFirst" is terminal operation */
+
+jshell> courses.stream().peek(System.out::println).filter(courses -> courses.length()>11).map(String::toUpperCase).peek(System.out::println)
+$4 ==> java.util.stream.ReferencePipeline$15@736e9adb
+
+
+/* In Jshell if we return some value , it takes value and put it in variable. Here "$4" is variable created. so we can apply 
+operation on variable also"
+
+jshell> $4.findFirst()
+
+ Spring
+Spring Boot
+API
+Microservices
+MICROSERVICES
+$5 ==> Optional[MICROSERVICES]                                                                       
+                                                                         
+                                                                         
+                                                                         
+                                                                         
+                                                                         
+                                                                         
+                                                                         
+                                                                         
+                                                                         
