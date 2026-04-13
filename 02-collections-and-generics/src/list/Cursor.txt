@@ -1,0 +1,14 @@
+ Cursor
+
+ An indicator used to show the current position for the respective object oir element
+
+ Four type of Cursor
+
+ 1. Enumeration   :- used to get object one by one from legacy collection object. We can not remove any
+                     object using enumeration, we only get read access.
+
+
+
+ 2. Iterator      :-  can be used with any collection object weather it is legacy or not
+
+ 3. ListIterator  :-  can be used with any list object

@@ -1,0 +1,98 @@
+                           Map
+
+Represents a mapping between a key and value.
+
+Keys and values are object and can be of any type.
+
+Duplicate keys are not allowed, Values can be duplicated
+
+Collection of entry-object.
+
+Each key-value pair is called entry.
+
+
+
+
+                            Hashing
+
+Hash function generates unique code for the object.
+
+Object class has two methods
+
+i) hashcode()
+
+ii) equals()
+
+
+If two object are equal according to equals() then they must have
+same hashcode value but reverse is not always true.
+
+There could be same hashcode for two unequal object.
+
+
+
+                         HashMap
+
+Insertion order is not preserved.
+Duplicate keys are not allowed.
+Allows null as key (Only once). Value can be null more than once.
+Heterogeneous elements are allowed as key and value both.
+Implements Serializable   and Cloneable interface.
+Extends as abstract class AbstractMap.
+Best  choice for search operation.
+
+
+                     LinkedHash Map
+
+Underlying Data Structure = HashTable + Linkedlist
+Insertion order is preserved.
+Used for developing cache based application.
+
+                    Identity Hash Map
+
+Identity hash map internally use "==" for comparison,
+while linkedHash Map use ".equal()" method for comparison.
+
+So, with Identity Hash map, values can be same but reference must be difference.
+
+
+                    WeakHashMap
+
+
+Object without any reference is always eligible for Garbage Collection.
+
+But, In Hashmap, if object is specified as key in Hashmap, though it
+doesn't have any reference. It is not eligible for GC.
+
+Hashmap dominates GC.
+
+In case of WeakHashmap, if object doesn't have any reference
+even though it is specified as key. It will be eligible for GC.
+
+GC dominates WeakHashMap.
+
+WeakHashMap does not Implement Serializable   and Cloneable interface.
+
+
+
+                 NavigableMap Interface
+
+. Sub interface of SortedMap
+. Contains methods related to Navigation functionality.
+. Both SortedMap and NavigableMap have a same implementation
+  class as TreeMap.
+
+
+                     TreeMap
+
+Insertion order is not preserved.
+
+Duplicate keys are not allowed. (Values can be duplicate)
+
+Default Sorting order : Keys of sorting order should be
+homogeneous and comparable.
+
+Customized Order : Keys need not be homogeneous and comparable.
+(Values can be homogeneous and heterogeneous in both cases).
+
+Null Key is not allowed, null values are allowed.

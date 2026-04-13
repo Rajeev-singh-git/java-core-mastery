@@ -1,0 +1,67 @@
+Why use set when we already have list interface?
+
+To represent a group of discrete object as single entity where duplicates are not
+allowed and insertion order is also not preserved.
+
+Only similarity Accept heterogeneous objects.
+
+Set Interface does not contain new method. It uses all the method present in
+collection interface.
+
+
+It has two implementation classes.
+
+1.) HashSet, Hashset has also sub interface Linked HashSet.
+
+2.) SortedSet, It has also sub interface Navigable set.
+
+
+
+1.) HashSet
+
+Underlying data Structure : HashTable
+
+.) Does not allow duplicates.
+.) Insertion order is not preserved.
+.) Can add heterogeneous elements.
+.) We can add null value.
+.) Implements Serializable and Cloneable Interface.
+
+
+i.) LinkedHashSet
+
+Child class of HashSet
+
+Introduced in v 1.4
+
+Insertion order is preserved in LinkedHashSet
+
+Underlying data structure = Combination of linked list and hashTable
+
+
+
+2.) SortedSet
+
+.) all the properties of set are by default property of sorted set.
+.) Only homogenous object can be stored
+
+
+Difference
+
+ Insertion is done based on some sorting order.
+
+Sorted set interface has sub-interface Navigable set
+and implementation class "TreeSet"
+
+i) Navigable Set
+
+Child interface of Navigable set
+Contains method related to navigation.
+
+
+Tree Set
+
+Underlying Data Structure : Balanced Tree
+
+Object which we can insert in Treeset must
+implement comparable interface.

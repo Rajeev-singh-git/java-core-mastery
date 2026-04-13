@@ -1,0 +1,128 @@
+                    Need of Concurrent collection
+
+If one thread is working on collection object and other thread comes
+and modifies data, there may be problem of data inconsistency.
+
+Data inconsistency problem
+
+To overcome data inconsistency problem, java use "SYNCHRONIZED"
+blocks or methods, so that only one thread can use that block
+or object at only one time.
+
+To overcome performance problem in old java collection way of synchronization
+java introduced Concurrent collection.
+
+                       ConcurrentModificationException
+
+If one thread is iterating over collection and at the same time
+if another thread is modifying same collection object, there is possibility
+the programme will throw ConcurrentModificationException.
+
+
+               How ConCurrent Collection overcame  ConcurrentModificationException ?
+
+Old collection was blocking the whole object, new Collection
+improved algorithm and DSA in big way by locking only a
+particular segment of collection object rather than locking entire object.
+
+
+                ConcurrentHashMap
+
+Concurrent Hashmap implements Concurrent map interface.
+All the method present in map and Concurrent Map are also present in
+ConcurrentHashMap.
+
+
+               Internal implementation of ConcurrentHashMap
+
+ConcurrentHashMap only locks a portion of the collection on update.
+
+ConcurrentHashMap is better than Hashtable and synchronized Map
+as well.
+
+ConcurrentHashMap is fail safe does not throw ConcurrentModificationException.
+
+null is not allowed as a key or value in ConcurrentHashMap.
+
+Level of concurrency can be chosen by the programmer on a
+ConcurrentHashMap while initializing it.
+
+16 threads can operate simultaneously on any Concurrent Object. We can
+change this default number, but it is not recommended as it may have
+performance impact.
+
+
+
+                Difference between HahMap, HashTable and ConcurrentHashMap
+
+HahMap
+
+Not thread Safe --in multithreading environment this data structure can lead to data
+inconsistency problem.
+
+hashTable
+
+Thread Safe but poor in performance as the full object get
+locked in read/write. Only one thread is allowed to operate.
+
+ConcurrentHashMap
+
+Thread Safe and better in performance as no lock while
+read and segment is locked while write and segment is
+locked while write not full object.
+
+
+
+                         ConcurrentHashMap in Multi-threading
+
+
+Fail Safe : ConCurrentHashMap is Fail Safe, internal mechanism of
+            ConCurrentHashMap supports iteration and modification
+            simultaneously.
+
+Fail Fast : HashMap is Fail Fast and throws Concurrent modification
+            exception to prevent data inconsistency and let user know
+            other thread is modifying while iteration.
+
+
+
+
+                    CopyOnWriteArrayList
+
+Thread Safe
+
+If multiple threads are operating simultaneously then for Read
+there is no locking. Every thread can read simultaneously.
+
+Whenever there is update or write operation, a cloned copy will get
+created and update operation will take place on cloned copy. If there
+are 100 update operation 100 cloned copy will be created. Later,
+these objects will get synced with cloned object by JVM.
+
+Read operation is done on main object, Write operation on Cloned Object.
+
+Iterator of arraylist can perform remove operation but Iterator of
+CopyOnWriteArrayList can't perform remove operation as there may be problem
+with sync.
+
+                        CopyOnWriteArraySet
+
+Thread Safe
+
+If multiple threads are operating simultaneously then for Read
+there is no locking. Every thread can read simultaneously.
+
+Whenever there is update or write operation, a cloned copy will get
+created and update operation will take place on cloned copy. If there
+are 100 update operation 100 cloned copy will be created. Later,
+these objects will get synced with cloned object by JVM.
+
+Read operation is done on main object, Write operation on Cloned Object.
+
+
+It holds only unique objects.
+
+
+
+
+
